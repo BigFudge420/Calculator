@@ -1,0 +1,23 @@
+.calculator-buttons{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100px;
+}
+.btn{
+    width: 30px;
+}
+.clear{
+    width: 60px;
+}
+
+.text{
+    padding-left: 20px;
+}
+.equals{
+    width: 90px;
+}
+
+.calculator{
+    margin-left: 580px;
+    margin-top: 150px;
+}
