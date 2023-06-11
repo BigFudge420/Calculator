@@ -24,9 +24,6 @@ function setOperator(selectedOperator) {
 
 
 function operate() {
-    const numericValue = parseFloat(displayValue);
-    operands.push(numericValue);
-
     if (operands.length >= 2 && operator) {
         const result = calculateResult();
         displayValue = result.toString();
