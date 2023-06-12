@@ -27,6 +27,12 @@ function setOperator(selectedOperator) {
     return operators
 }
 
+
+function setOperand(selectedOperand){
+    operands.push(Number(selectedOperand))
+    return operands
+}
+
 function operate() {
     if (operands.length >= 2 && operators.length > 0) {
         const result = calculateResult();
@@ -41,27 +47,27 @@ function operate() {
 
 
 function calculateResult(){
-    
-    const [a, b] = operands.slice(-2)
-    
-    for (i = 0; i <= operators.length - 1; i++){
-        if (operators.includes('+')){
-            operators.shift()
-            return add(a,b)
-        }
-        else if (operators.includes('-')){
-            operators.shift()
-            return subtract(a,b)
-        } 
-        else if (operators.includes('x')){
-            operators.shift()
-            return multiply(a,b)
-        }
-        else if(operators.includes('÷')){
-            operators.shift()
-            return divide(a,b)
-        }
+    let result = operands[0]    
+    for (i = 0; i < operators.length; i++){
+        const operator = operators[i]
+        const operand = operands[i+1]
+        
+        switch (operator){
+            case '+':
+              result = add(result, operand);
+              break;
+            case '-':
+              result = subtract(result, operand);
+              break;
+            case 'x':
+              result = multiply(result, operand);
+              break;
+            case '÷':
+              result = divide(result, operand);
+              break;
+          }      
     }
+    return result
 }
 
 let displayValue = "";
@@ -83,99 +89,24 @@ function clearDisplay(){
     para.textContent = displayValue;
 }
 
-const num1 = document.querySelector('#num1');
-num1.addEventListener('click', () => {
-    updateDisplay('1');
-    operands.push(1);
-});
 
-const num2 = document.querySelector('#num2');
-num2.addEventListener('click', () => {
-    updateDisplay('2');
-    operands.push(2);
+const numButtons = document.querySelectorAll('.numbers')
+numButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const number = button.textContent;
+    setOperand(number)
+    updateDisplay(number);
+  });
+}); 
 
-});
-
-const num3 = document.querySelector('#num3');
-num3.addEventListener('click', () => {
-    updateDisplay('3');
-    operands.push(3);
-
-});
-
-const num4 = document.querySelector('#num4');
-num4.addEventListener('click', () => {
-    updateDisplay('4');
-    operands.push(4);
-
-});
-
-const num5 = document.querySelector('#num5');
-num5.addEventListener('click', () => {
-    updateDisplay('5');
-    operands.push(5);
-
-});
-
-const num6 = document.querySelector('#num6');
-num6.addEventListener('click', () => {
-    updateDisplay('6');
-    operands.push(6);
-
-});
-
-const num7 = document.querySelector('#num7');
-num7.addEventListener('click', () => {
-    updateDisplay('7');
-    operands.push(7);
-
-});
-
-const num8 = document.querySelector('#num8');
-num8.addEventListener('click', () => {
-    updateDisplay('8');
-    operands.push(8);
-
-});
-
-const num9 = document.querySelector('#num9');
-num9.addEventListener('click', () => {
-    updateDisplay('9');
-    operands.push(9);
-
-});
-
-const num0 = document.querySelector('#num0');
-num0.addEventListener('click', () => {
-    updateDisplay('0');
-    operands.push(0);
-
-});
-
-
-const addButton = document.querySelector('#add')
-addButton.addEventListener('click',() =>{
-    updateDisplay('+')
-    setOperator('+')
-});
-
-const subtractButton = document.querySelector('#subtract')
-subtractButton.addEventListener('click',() =>{
-    updateDisplay('-')
-    setOperator('-')
-});
-
-const multiplyButton = document.querySelector('#multiply')
-multiplyButton.addEventListener('click',() =>{
-    updateDisplay('x')
-    setOperator('x')
-});
-
-const divideButton = document.querySelector('#divide')
-divideButton.addEventListener('click',() =>{
-    updateDisplay('÷')
-    setOperator('÷')
-});
+const operatorButtons = document.querySelectorAll('.operator')
+operatorButtons.forEach((button) => {
+    button.addEventListener('click',() => {
+        const operator = button.textContent
+        setOperator(operator)
+        updateDisplay(operator)
+    })
+})
     
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', () => {
