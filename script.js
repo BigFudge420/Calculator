@@ -19,8 +19,17 @@ function divide(a,b){
     }
 }
 
+let numInputs = []
 let operands = []
 let operators = []
+
+function updateOperands(){
+    let numberString = numInputs.join('')
+    operands.push(Number(numberString))
+    numInputs = []
+    return operands   
+}
+
 
 function setOperator(selectedOperator) {
     operators.push(selectedOperator)
@@ -28,9 +37,11 @@ function setOperator(selectedOperator) {
 }
 
 
-function setOperand(selectedOperand){
-    operands.push(Number(selectedOperand))
-    return operands
+
+
+function setNumInput(selectedInput){
+    numInputs.push(Number(selectedInput))
+    return numInputs
 }
 
 function operate() {
@@ -39,7 +50,7 @@ function operate() {
         displayValue = result.toString();
         const para = document.querySelector('.text');
         para.textContent = displayValue;
-        operands = [result];
+        numInputs = [result];
     } else {
         displayValue = ''; // Clear the display if there are not enough operands or operator
     }
@@ -94,7 +105,7 @@ const numButtons = document.querySelectorAll('.numbers')
 numButtons.forEach((button) => {
   button.addEventListener('click', () => {
     const number = button.textContent;
-    setOperand(number)
+    setNumInput(number)
     updateDisplay(number);
   });
 }); 
@@ -104,6 +115,7 @@ operatorButtons.forEach((button) => {
     button.addEventListener('click',() => {
         const operator = button.textContent
         setOperator(operator)
+        updateOperands()
         updateDisplay(operator)
     })
 })
@@ -112,11 +124,13 @@ const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', () => {
     clearDisplay();
     operators = [];
+    numInputs = []
     operands = [];
 });
 
 const equalButton = document.querySelector('#equals');
 equalButton.addEventListener('click', () => {
+    updateOperands()
     operate();
 })
 
@@ -125,5 +139,6 @@ btns.forEach((btn) => {
   btn.addEventListener('click', () => {
     console.log(operators)
     console.log(operands)
+    console.log(numInputs)
   })
 })
