@@ -62,29 +62,17 @@ function calculateResult(){
             return divide(a,b)
         }
     }
-
-
-    // switch(operator){
-    //     case '+':
-    //         return add(a,b);
-    //         break;
-    //     case '-':
-    //         return subtract(a,b);
-    //         break;
-    //     case 'x':
-    //         return multiply(a,b);
-    //         break;
-    //     case '÷':
-    //         return divide(a,b);
-    //         break;
-    // }
-    
 }
 
 let displayValue = "";
 
 function updateDisplay(number){
-    displayValue += number
+    if (displayValue === 0){
+        displayValue = number;
+    }else {
+        displayValue += number;
+    }
+
     const para = document.querySelector('.text')
     para.textContent = displayValue
 }
