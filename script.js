@@ -3,7 +3,7 @@ function add(a,b){
 }
 
 function subtract(a,b){
-    return b-a
+    return a-b
 }
 
 function multiply(a,b){
@@ -11,7 +11,12 @@ function multiply(a,b){
 }
 
 function divide(a,b){
-    return b/a
+    if (b === 0){
+        return 'Yea sure keep dreaming'
+    }
+    else {
+        return a/b
+    }
 }
 
 let operands = []
