@@ -1,27 +1,43 @@
 .calculator-buttons{
     display: flex;
     flex-wrap: wrap;
-    width: 100px;
+    width: 200px;
 }
 .btn{
-    width: 30px;
+    width: 60px;
+    border: 1px solid black;
 }
 .clear{
-    width: 60px;
+    width: 120px;
 }
 
 .text{
     padding-left: 20px;
 }
 .equals{
-    width: 90px;
+    width: 180px;
 }
 
 #num0{
-    width: 90px;
+    width: 180px;
 }
 
 .calculator{
+    background-color: darkgray;
+    display: flex;
+    flex-wrap: wrap;
+    border: 3px solid black;
     margin-left: 580px;
     margin-top: 150px;
+    width: 180px;
+    height: 360px;
+}
+
+.display-result{
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    width: 200px;
+    height: auto;
+    border: 1px solid grey;
 }
