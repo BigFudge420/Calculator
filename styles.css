@@ -6,13 +6,16 @@
 .btn{
     width: 60px;
     border: 1px solid black;
+    font-weight: bolder;
+    font-size: 15px;
 }
 .clear{
     width: 120px;
 }
 
 .text{
-    padding-left: 20px;
+    padding-left: 0px;
+    margin: 0px;
 }
 .equals{
     width: 180px;
@@ -40,4 +43,16 @@
     width: 200px;
     height: auto;
     border: 1px solid grey;
+}
+
+.numbers{
+    background-color: #03ad9a;
+}
+
+.other{
+    background-color: #039fad;
+}
+
+.operator{
+    background-color: orange;
 }
