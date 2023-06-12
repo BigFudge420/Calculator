@@ -15,16 +15,15 @@ function divide(a,b){
 }
 
 let operands = []
-let operator = null
+let operators = []
 
 function setOperator(selectedOperator) {
-    operator = selectedOperator;
-    return operator
+    operators.push(selectedOperator)
+    return operators
 }
 
-
 function operate() {
-    if (operands.length >= 2 && operator) {
+    if (operands.length >= 2 && operators.length > 0) {
         const result = calculateResult();
         displayValue = result.toString();
         const para = document.querySelector('.text');
@@ -40,20 +39,40 @@ function calculateResult(){
     
     const [a, b] = operands.slice(-2)
     
-    switch(operator){
-        case '+':
-            return add(a,b);
-            break;
-        case '-':
-            return subtract(a,b);
-            break;
-        case 'x':
-            return multiply(a,b);
-            break;
-        case '÷':
-            return divide(a,b);
-            break;
+    for (i = 0; i <= operators.length - 1; i++){
+        if (operators.includes('+')){
+            operators.shift()
+            return add(a,b)
+        }
+        else if (operators.includes('-')){
+            operators.shift()
+            return subtract(a,b)
+        } 
+        else if (operators.includes('x')){
+            operators.shift()
+            return multiply(a,b)
+        }
+        else if(operators.includes('÷')){
+            operators.shift()
+            return divide(a,b)
+        }
     }
+
+
+    // switch(operator){
+    //     case '+':
+    //         return add(a,b);
+    //         break;
+    //     case '-':
+    //         return subtract(a,b);
+    //         break;
+    //     case 'x':
+    //         return multiply(a,b);
+    //         break;
+    //     case '÷':
+    //         return divide(a,b);
+    //         break;
+    // }
     
 }
 
@@ -164,13 +183,23 @@ divideButton.addEventListener('click',() =>{
     updateDisplay('÷')
     setOperator('÷')
 });
-
+    
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', () => {
     clearDisplay();
+    operators = [];
+    operands = [];
 });
 
 const equalButton = document.querySelector('#equals');
 equalButton.addEventListener('click', () => {
     operate();
+})
+
+const btns = document.querySelectorAll('.btn')
+btns.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    console.log(operators)
+    console.log(operands)
+  })
 })
