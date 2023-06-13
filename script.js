@@ -22,12 +22,18 @@ function divide(a,b){
 let numInputs = []
 let operands = []
 let operators = []
+let lastModifiedArray;
 
 function updateOperands(){
-    let numberString = numInputs.join('')
-    operands.push(Number(numberString))
-    numInputs = []
-    return operands   
+    if(numInputs.length === 0){
+        return operands
+    }
+    else {
+        let numberString = numInputs.join('')
+        operands.push(Number(numberString))
+        numInputs = []
+        return operands
+    }   
 }
 
 
@@ -58,8 +64,8 @@ function operate() {
         const para = document.querySelector('.text');
         para.textContent = displayValue;
         numInputs = [result];
-        operands = []
-        operators = []
+        operands = [];
+        operators = [];
     } else {
         displayValue = ''; // Clear the display if there are not enough operands or operator
     }
@@ -85,6 +91,9 @@ function calculateResult(){
             case '÷':
               result = divide(result, operand);
               break;
+            default:
+                result = operand;
+                break;
           }      
     }
     return result
@@ -124,9 +133,68 @@ function handleKeyPress(event){
         numInputs = [];
         operands = [];
     }
+
+    else if (key === 'Backspace'){
+        handleBackspace();
+    }
+    
+    console.log(`Operators: ${operators}`)
+    console.log(`Operands: ${operands}`)
+    console.log(`Inputs: ${numInputs}`)
+    console.log(typeof displayValue)
+
 }
 
 document.addEventListener('keydown', handleKeyPress)
+
+function handleBackspace(){
+
+      if(displayValue.charAt(displayValue.length - 1) === operators[operators.length - 1]){
+        operators.pop();
+      } 
+
+      else if(numInputs.length > 0){
+        let lastElementChars = [];
+        let lastElement = numInputs[numInputs.length - 1];
+        let lastElementString = String(lastElement)
+        let characters = lastElementString.split('')
+        lastElementChars.push(...characters);
+        lastElementChars.pop()
+ 
+        if (lastElementChars.length > 0){
+            let poppedNumber = Number(lastElementChars.join(''));
+            numInputs.pop();
+            numInputs.push(poppedNumber);
+        }
+        else {
+            numInputs.pop()
+        }
+      }
+
+      else if (operands.length > 0 && numInputs.length === 0) {
+        let lastElementChars = [];
+        let lastElement = operands[operands.length - 1];
+        let lastElementString = String(lastElement)
+        let characters = lastElementString.split('')
+        lastElementChars.push(...characters);
+        lastElementChars.pop()
+ 
+        if (lastElementChars.length > 0){
+            let poppedNumber = Number(lastElementChars.join(''));
+            operands.pop();
+            operands.push(poppedNumber);
+        }
+        else {
+            operands.pop()
+        }
+      }
+
+      if (displayValue.length > 0) {
+        displayValue = displayValue.slice(0, -1);
+        const para = document.querySelector('.text');
+        para.textContent = displayValue;
+      }    
+}
 
 let displayValue = "";
 
@@ -191,6 +259,11 @@ equalButton.addEventListener('click', () => {
     operate();
 })
 
+const backspaceButton = document.querySelector('#backspace')
+backspaceButton.addEventListener('click', () => {
+    handleBackspace()
+})
+
 const btns = document.querySelectorAll('.btn')
 btns.forEach((btn) => {
   btn.addEventListener('click', () => {
@@ -200,3 +273,5 @@ btns.forEach((btn) => {
     console.log(typeof displayValue)
   })
 })
+
+

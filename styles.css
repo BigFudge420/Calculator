@@ -36,8 +36,12 @@
     font-weight: bold;
     text-shadow: -2px 2px 3px #434544;
 }
+.backspace{
+    width: 100px;
+}
+
 .equals{
-    width: 180px;
+    width: 80px;
 }
 
 #num0{
