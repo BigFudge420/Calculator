@@ -36,15 +36,12 @@ function setOperator(selectedOperator) {
     return operators
 }
 
-
-
-
 function setNumInput(selectedInput){
     if ( selectedInput === '.'){
         if (numInputs.length === 0 || numInputs.includes('.')) {
             return;
         } 
-        else if (selectedInput === '.' && !numInputs.includes('.')){
+        else if (!numInputs.includes('.')){
             numInputs.push(selectedInput)
         }
     }
@@ -98,8 +95,10 @@ function updateDisplay(number){
         if (displayValue.length === 0 || displayValue.includes('.')){
             return;
         }
+        else if (!displayValue.includes('.')) {
+            return displayValue += '.';
+        }
     }
-
     else displayValue += number;
     
     const para = document.querySelector('.text')
@@ -134,9 +133,8 @@ operatorButtons.forEach((button) => {
   
 const dotButton = document.querySelector('#dot');
 dotButton.addEventListener('click', () => {
-  const dot = dotButton.textContent;
-  setNumInput(dot);
-  updateDisplay(dot);
+  setNumInput('.');
+  updateDisplay('.');
 });
 
 const clearButton = document.querySelector('#clear');
@@ -156,8 +154,9 @@ equalButton.addEventListener('click', () => {
 const btns = document.querySelectorAll('.btn')
 btns.forEach((btn) => {
   btn.addEventListener('click', () => {
-    console.log(operators)
-    console.log(operands)
-    console.log(numInputs)
+    console.log(`Operators: ${operators}`)
+    console.log(`Operands: ${operands}`)
+    console.log(`Inputs: ${numInputs}`)
+    console.log(typeof displayValue)
   })
 })
