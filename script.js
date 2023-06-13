@@ -58,6 +58,8 @@ function operate() {
         const para = document.querySelector('.text');
         para.textContent = displayValue;
         numInputs = [result];
+        operands = []
+        operators = []
     } else {
         displayValue = ''; // Clear the display if there are not enough operands or operator
     }
@@ -87,6 +89,44 @@ function calculateResult(){
     }
     return result
 }
+
+function handleKeyPress(event){
+    const key = event.key;
+    console.log(`Key: ${key}`);
+
+    if (/[0-9]/.test(key)){
+        setNumInput(key)
+        updateDisplay(key)
+    }
+    else if(/[+\-x/]/.test(key)){
+        if (key === '/'){
+            setOperator('÷')
+            updateOperands()
+            updateDisplay('÷')
+        } 
+        else {
+            setOperator(key)
+            updateOperands()
+            updateDisplay(key)
+        }
+    }
+    else if(key === '.'){
+        setNumInput('.')
+        updateDisplay('.')
+    }
+    else if(key === 'Enter'){
+        updateOperands()
+        operate()
+    }
+    else if(key === 'Escape'){
+        clearDisplay();
+        operators = [];
+        numInputs = [];
+        operands = [];
+    }
+}
+
+document.addEventListener('keydown', handleKeyPress)
 
 let displayValue = "";
 
