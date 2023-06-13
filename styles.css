@@ -41,7 +41,7 @@
 }
 
 #num0{
-    width: 180px;
+    width: 120px;
 }
 
 .calculator{
@@ -68,7 +68,8 @@
     border-radius: 5px;
 }
 
-.numbers{
+.numbers,
+#dot{
     background-color: #03ad9a;
 }
 

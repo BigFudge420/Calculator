@@ -40,8 +40,18 @@ function setOperator(selectedOperator) {
 
 
 function setNumInput(selectedInput){
-    numInputs.push(Number(selectedInput))
-    return numInputs
+    if ( selectedInput === '.'){
+        if (numInputs.length === 0 || numInputs.includes('.')) {
+            return;
+        } 
+        else if (selectedInput === '.' && !numInputs.includes('.')){
+            numInputs.push(selectedInput)
+        }
+    }
+    else {
+        numInputs.push(Number(selectedInput))
+        return numInputs
+    }
 }
 
 function operate() {
@@ -84,12 +94,14 @@ function calculateResult(){
 let displayValue = "";
 
 function updateDisplay(number){
-    if (displayValue === 0){
-        displayValue = number;
-    }else {
-        displayValue += number;
+    if (number === '.'){
+        if (displayValue.length === 0 || displayValue.includes('.')){
+            return;
+        }
     }
 
+    else displayValue += number;
+    
     const para = document.querySelector('.text')
     para.textContent = displayValue
 }
@@ -119,7 +131,14 @@ operatorButtons.forEach((button) => {
         updateDisplay(operator)
     })
 })
-    
+  
+const dotButton = document.querySelector('#dot');
+dotButton.addEventListener('click', () => {
+  const dot = dotButton.textContent;
+  setNumInput(dot);
+  updateDisplay(dot);
+});
+
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', () => {
     clearDisplay();
