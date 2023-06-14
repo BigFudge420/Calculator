@@ -12,7 +12,7 @@ function multiply(a,b){
 
 function divide(a,b){
     if (b === 0){
-        return 'Yea sure keep dreaming'
+        return 'lmao look at this dum dum'
     }
     else {
         return a/b
