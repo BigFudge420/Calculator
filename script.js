@@ -60,7 +60,7 @@ function setNumInput(selectedInput){
 function operate() {
     if (operands.length >= 2 && operators.length > 0) {
         const result = calculateResult();
-        const roundedResult = Number.isInteger(result) ? result : result.toFixed(2);
+        const roundedResult = (Number.isInteger(result) || typeof result === "string") ? result : result.toFixed(2);
         displayValue = roundedResult.toString();
         const para = document.querySelector('.text');
         para.textContent = displayValue;
