@@ -13,6 +13,7 @@ body{
 }
 .btn{
     width: 60px;
+    font-family: 'Roboto Mono', sans-serif;
     border: 1px solid black;
     font-weight: bolder;
     font-size: 15px;
