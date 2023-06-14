@@ -60,14 +60,15 @@ function setNumInput(selectedInput){
 function operate() {
     if (operands.length >= 2 && operators.length > 0) {
         const result = calculateResult();
-        displayValue = result.toString();
+        const roundedResult = Number.isInteger(result) ? result : result.toFixed(2);
+        displayValue = roundedResult.toString();
         const para = document.querySelector('.text');
         para.textContent = displayValue;
         numInputs = [result];
         operands = [];
         operators = [];
     } else {
-        displayValue = ''; // Clear the display if there are not enough operands or operator
+        displayValue = ''; 
     }
 }
 
@@ -120,8 +121,7 @@ function handleKeyPress(event){
         }
     }
     else if(key === '.'){
-        setNumInput('.')
-        updateDisplay('.')
+        updateAndSetDecimal('.')
     }
     else if(key === 'Enter'){
         updateOperands()
@@ -138,11 +138,8 @@ function handleKeyPress(event){
         handleBackspace();
     }
     
-    console.log(`Operators: ${operators}`)
     console.log(`Operands: ${operands}`)
     console.log(`Inputs: ${numInputs}`)
-    console.log(typeof displayValue)
-
 }
 
 document.addEventListener('keydown', handleKeyPress)
@@ -197,21 +194,32 @@ function handleBackspace(){
 }
 
 let displayValue = "";
+  
+function updateDisplay(number) {
+    displayValue += number;
+    const para = document.querySelector('.text');
+    para.textContent = displayValue;
+    return displayValue;
+}
 
-function updateDisplay(number){
-    if (number === '.'){
-        if (displayValue.length === 0 || displayValue.includes('.')){
+function updateAndSetDecimal(dot){
+    if (dot === '.'){
+        if (numInputs.includes('.')){
             return;
         }
-        else if (!displayValue.includes('.')) {
-            return displayValue += '.';
+        else if(numInputs.length === 0 || displayValue.length === 0){
+            displayValue = 0
+            setNumInput(0)
+            setNumInput('.')
+            updateDisplay('.')
+        }
+        else {
+            setNumInput('.')
+            updateDisplay('.')
         }
     }
-    else displayValue += number;
-    
-    const para = document.querySelector('.text')
-    para.textContent = displayValue
 }
+
 
 function clearDisplay(){
     displayValue = '';
@@ -241,8 +249,7 @@ operatorButtons.forEach((button) => {
   
 const dotButton = document.querySelector('#dot');
 dotButton.addEventListener('click', () => {
-  setNumInput('.');
-  updateDisplay('.');
+    updateAndSetDecimal('.')
 });
 
 const clearButton = document.querySelector('#clear');
@@ -267,11 +274,7 @@ backspaceButton.addEventListener('click', () => {
 const btns = document.querySelectorAll('.btn')
 btns.forEach((btn) => {
   btn.addEventListener('click', () => {
-    console.log(`Operators: ${operators}`)
     console.log(`Operands: ${operands}`)
     console.log(`Inputs: ${numInputs}`)
-    console.log(typeof displayValue)
   })
 })
-
-
